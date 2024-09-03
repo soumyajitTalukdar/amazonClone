@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
 
 class CategoryItem extends StatelessWidget {
-  const CategoryItem({super.key});
+  final String imageUrl;
+  final String text;
+
+  const CategoryItem({
+    super.key,
+    required this.imageUrl,
+    required this.text,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -12,14 +19,14 @@ class CategoryItem extends StatelessWidget {
             height: 75,
             width: 75,
             child: Image.network(
-              "https://th.bing.com/th/id/OIP.qTiNdQtdf2_9XAt3sWSAjgHaFv?rs=1&pid=ImgDetMain",
+              imageUrl,
               fit: BoxFit.cover,
               // height: 50,
             )),
-        const Text(
-          'Grocery',
+        Text(
+          text,
           textAlign: TextAlign.center,
-          style: TextStyle(fontSize: 14),
+          style: const TextStyle(fontSize: 14),
         )
       ],
     );
