@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_projects/category_item.dart';
+import 'package:flutter_projects/page_view_highlights.dart';
 
 void main() {
   runApp(const MyApp());
@@ -38,7 +39,6 @@ class MyApp extends StatelessWidget {
 
     return MaterialApp(
       home: Scaffold(
-        // backgroundColor: Colors.white,
         appBar: AppBar(
           backgroundColor: const Color.fromARGB(210, 65, 200, 180),
           title: Row(
@@ -48,7 +48,6 @@ class MyApp extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(
                       horizontal: 10.0, vertical: 15.0),
                   child: Container(
-                    // height: 40,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10.0),
                       boxShadow: [
@@ -60,7 +59,6 @@ class MyApp extends StatelessWidget {
                         ),
                       ],
                     ),
-
                     child: TextField(
                       decoration: InputDecoration(
                         hintText: 'Search Amazon.in',
@@ -129,13 +127,14 @@ class MyApp extends StatelessWidget {
                         color: Colors.black,
                         size: 24.0,
                       ),
-                      SizedBox(height: 40.0),
-                      Text(
-                        'Deliver to Soumyajit - Kolkata 700078',
-                        style: TextStyle(
-                          fontSize: 15.0,
-                          // fontWeight: FontWeight.bold,
-                          color: Colors.black,
+                      SizedBox(width: 8.0),
+                      Expanded(
+                        child: Text(
+                          'Deliver to Soumyajit - Kolkata 700078',
+                          style: TextStyle(
+                            fontSize: 15.0,
+                            color: Colors.black,
+                          ),
                         ),
                       ),
                     ],
@@ -143,24 +142,29 @@ class MyApp extends StatelessWidget {
                 ),
               ),
               SizedBox(
-                  height: 110,
-                  child: Padding(
-                    padding: const EdgeInsetsDirectional.all(5.0),
-                    child: ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: 10,
-                      scrollDirection: Axis.horizontal,
-                      itemBuilder: (BuildContext context, int index) {
-                        return Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 4.0),
-                          child: CategoryItem(
-                            imageUrl: imageUrls[index],
-                            text: texts[index],
-                          ),
-                        );
-                      },
-                    ),
-                  )),
+                height: 110,
+                child: Padding(
+                  padding: const EdgeInsetsDirectional.all(5.0),
+                  child: ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: 10,
+                    scrollDirection: Axis.horizontal,
+                    itemBuilder: (BuildContext context, int index) {
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                        child: CategoryItem(
+                          imageUrl: imageUrls[index],
+                          text: texts[index],
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 275,
+                child: PageViewHighlights(),
+              ),
             ],
           ),
         ),
