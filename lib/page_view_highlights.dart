@@ -19,8 +19,8 @@ class _PageViewHighlightsState extends State<PageViewHighlights> {
     super.initState();
 
     // Initialize the timer for the auto slideshow
-    _timer = Timer.periodic(const Duration(seconds: 2), (Timer timer) {
-      if (_currentPage < 1) {
+    _timer = Timer.periodic(const Duration(seconds: 3), (Timer timer) {
+      if (_currentPage < 3) {
         _currentPage++;
       } else {
         _currentPage = 0;
@@ -29,7 +29,7 @@ class _PageViewHighlightsState extends State<PageViewHighlights> {
       // Animate the page change
       _pageController.animateToPage(
         _currentPage,
-        duration: const Duration(milliseconds: 200),
+        duration: const Duration(milliseconds: 300),
         curve: Curves.easeInOut,
       );
     });

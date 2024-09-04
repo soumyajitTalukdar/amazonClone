@@ -1,13 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_projects/category_item.dart';
 import 'package:flutter_projects/page_view_highlights.dart';
+import 'package:flutter_projects/bottom_navigation.dart';
 
 void main() {
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
+
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  int _currentIndex = 0;
+
+  final List<Widget> _pages = [
+    const Center(child: Text('Home')), // Home screen content
+    const Center(child: Text('Search')), // Search screen content
+    const Center(child: Text('Profile')), // Profile screen content
+  ];
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _currentIndex = index;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -109,64 +129,73 @@ class MyApp extends StatelessWidget {
           ),
           toolbarHeight: 90.0,
         ),
-        body: SingleChildScrollView(
-          scrollDirection: Axis.vertical,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Container(
-                color: const Color.fromARGB(120, 65, 200, 180),
-                child: const Padding(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      Icon(
-                        Icons.location_on_outlined,
-                        color: Colors.black,
-                        size: 24.0,
-                      ),
-                      SizedBox(width: 8.0),
-                      Expanded(
-                        child: Text(
-                          'Deliver to Soumyajit - Kolkata 700078',
-                          style: TextStyle(
-                            fontSize: 15.0,
-                            color: Colors.black,
-                          ),
+        body: _currentIndex == 0
+            ? SingleChildScrollView(
+                scrollDirection: Axis.vertical,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Container(
+                      color: const Color.fromARGB(120, 65, 200, 180),
+                      child: const Padding(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 10.0, vertical: 5.0),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Icon(
+                              Icons.location_on_outlined,
+                              color: Colors.black,
+                              size: 24.0,
+                            ),
+                            SizedBox(width: 8.0),
+                            Expanded(
+                              child: Text(
+                                'Deliver to Soumyajit - Kolkata 700078',
+                                style: TextStyle(
+                                  fontSize: 15.0,
+                                  color: Colors.black,
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                       ),
-                    ],
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: 110,
-                child: Padding(
-                  padding: const EdgeInsetsDirectional.all(5.0),
-                  child: ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: 10,
-                    scrollDirection: Axis.horizontal,
-                    itemBuilder: (BuildContext context, int index) {
-                      return Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 4.0),
-                        child: CategoryItem(
-                          imageUrl: imageUrls[index],
-                          text: texts[index],
+                    ),
+                    SizedBox(
+                      height: 110,
+                      child: Padding(
+                        padding: const EdgeInsetsDirectional.all(5.0),
+                        child: ListView.builder(
+                          shrinkWrap: true,
+                          itemCount: 10,
+                          scrollDirection: Axis.horizontal,
+                          itemBuilder: (BuildContext context, int index) {
+                            return Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 4.0),
+                              child: CategoryItem(
+                                imageUrl: imageUrls[index],
+                                text: texts[index],
+                              ),
+                            );
+                          },
                         ),
-                      );
-                    },
-                  ),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 275,
+                      child: PageViewHighlights(),
+                    ),
+                  ],
                 ),
-              ),
-              const SizedBox(
-                height: 275,
-                child: PageViewHighlights(),
-              ),
-            ],
-          ),
+              )
+            : const Center(
+                child: Text(
+                    'Other Screen Content')), // Handle other tabs content here
+        bottomNavigationBar: BottomNavigation(
+          currentIndex: _currentIndex,
+          onTap: _onItemTapped, // Handle tap on bottom navigation items
         ),
       ),
     );
