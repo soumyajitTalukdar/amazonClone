@@ -1,4 +1,7 @@
-import 'dart:async'; // Import this package for Timer
+// auto scrolling for pageView done through Ticker
+
+// Using SingleTickerProviderStateMixin and working with AnimationController
+
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
@@ -6,39 +9,55 @@ class PageViewHighlights extends StatefulWidget {
   const PageViewHighlights({super.key});
 
   @override
-  _PageViewHighlightsState createState() => _PageViewHighlightsState();
+  State<PageViewHighlights> createState() => _PageViewHighlightsState();
 }
 
-class _PageViewHighlightsState extends State<PageViewHighlights> {
+class _PageViewHighlightsState extends State<PageViewHighlights>
+    with SingleTickerProviderStateMixin {
   final PageController _pageController = PageController();
-  late Timer _timer; // Declare a Timer
   int _currentPage = 0; // Track the current page
+  late AnimationController _animationController;
 
   @override
   void initState() {
     super.initState();
 
-    // Initialize the timer for the auto slideshow
-    _timer = Timer.periodic(const Duration(seconds: 3), (Timer timer) {
-      if (_currentPage < 3) {
-        _currentPage++;
-      } else {
-        _currentPage = 0;
-      }
+    // Initialize the AnimationController
+    _animationController = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 3),
+    );
 
-      // Animate the page change
-      _pageController.animateToPage(
-        _currentPage,
-        duration: const Duration(milliseconds: 300),
-        curve: Curves.easeInOut,
-      );
+    // Add a listener to handle page changes
+    _animationController.addListener(() {
+      if (_animationController.isCompleted) {
+        // When animation completes, move to the next page
+        if (_currentPage < 3) {
+          _currentPage++;
+        } else {
+          _currentPage = 0;
+        }
+
+        // Animate to the next page
+        _pageController.animateToPage(
+          _currentPage,
+          duration: const Duration(milliseconds: 300),
+          curve: Curves.easeInOut,
+        );
+
+        // Reset and start the animation again
+        _animationController.forward(from: 0.0);
+      }
     });
+
+    // Start the initial animation
+    _animationController.forward();
   }
 
   @override
   void dispose() {
-    _timer.cancel(); // Cancel the timer when the widget is disposed
-    _pageController.dispose(); // Dispose the PageController
+    _pageController.dispose(); // Dispose of the PageController
+    _animationController.dispose(); // Dispose of the AnimationController
     super.dispose();
   }
 
@@ -50,6 +69,8 @@ class _PageViewHighlightsState extends State<PageViewHighlights> {
           controller: _pageController,
           onPageChanged: (int page) {
             _currentPage = page; // Update the current page index
+            _animationController.reset(); // Reset the animation on manual swipe
+            _animationController.forward(); // Start the animation again
           },
           children: <Widget>[
             Image.network(
@@ -83,18 +104,19 @@ class _PageViewHighlightsState extends State<PageViewHighlights> {
               controller: _pageController,
               count: 4,
               effect: const CustomizableEffect(
-                  dotDecoration: DotDecoration(
-                    height: 10,
-                    width: 10,
-                    color: Colors.white,
-                    borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                  ),
-                  activeDotDecoration: DotDecoration(
-                    height: 10,
-                    width: 10,
-                    color: Colors.blue,
-                    borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                  )),
+                dotDecoration: DotDecoration(
+                  height: 10,
+                  width: 10,
+                  color: Colors.white,
+                  borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                ),
+                activeDotDecoration: DotDecoration(
+                  height: 10,
+                  width: 10,
+                  color: Colors.blue,
+                  borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                ),
+              ),
             ),
           ),
         ),

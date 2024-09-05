@@ -28,6 +28,14 @@ class BottomNavigation extends StatelessWidget {
           icon: Icon(Icons.layers),
           label: 'More',
         ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.shopping_cart_outlined),
+          label: 'Cart',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.menu_rounded),
+          label: 'Menu',
+        ),
       ],
       selectedItemColor: const Color.fromARGB(210, 65, 200, 180),
       unselectedItemColor: Colors.black54,
