@@ -1,6 +1,5 @@
 // auto scrolling for pageView done through Ticker
-
-// Using SingleTickerProviderStateMixin and working with AnimationController
+// using SingleTickerProviderStateMixin and working with AnimationController
 
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';

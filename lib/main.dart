@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_projects/cart_page.dart';
 import 'package:flutter_projects/category_item.dart';
 import 'package:flutter_projects/page_view_highlights.dart';
 import 'package:flutter_projects/bottom_navigation.dart';
+import 'package:flutter_projects/appbar_component.dart';
 
 void main() {
   runApp(const MyApp());
@@ -11,17 +13,17 @@ class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
   @override
-  _MyAppState createState() => _MyAppState();
+  State<MyApp> createState() => _MyAppState();
 }
 
 class _MyAppState extends State<MyApp> {
   int _currentIndex = 0;
 
-  final List<Widget> _pages = [
-    const Center(child: Text('Home')), // Home screen content
-    const Center(child: Text('Search')), // Search screen content
-    const Center(child: Text('Profile')), // Profile screen content
-  ];
+  // final List<Widget> _pages = [
+  //   const Center(child: Text('Home')), // Home screen content
+  //   const Center(child: Text('Search')), // Search screen content
+  //   const Center(child: Text('Profile')), // Profile screen content
+  // ];
 
   void _onItemTapped(int index) {
     setState(() {
@@ -58,146 +60,79 @@ class _MyAppState extends State<MyApp> {
     ];
 
     return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          backgroundColor: const Color.fromARGB(210, 65, 200, 180),
-          title: Row(
-            children: [
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 10.0, vertical: 15.0),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10.0),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey.withOpacity(0.5),
-                          spreadRadius: 2,
-                          blurRadius: 5,
-                          offset: const Offset(0, 2),
-                        ),
-                      ],
-                    ),
-                    child: TextField(
-                      decoration: InputDecoration(
-                        hintText: 'Search Amazon.in',
-                        prefixIcon: const Icon(Icons.search, size: 30.0),
-                        suffixIcon: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            IconButton(
-                              icon: const Icon(Icons.camera_alt_outlined,
-                                  color: Colors.grey, size: 30.0),
-                              onPressed: () {
-                                // navigation to be added
-                              },
+        home: Scaffold(
+      // use the appbar component
+      body: _currentIndex == 0
+          ? SingleChildScrollView(
+              scrollDirection: Axis.vertical,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Container(
+                    color: const Color.fromARGB(120, 65, 200, 180),
+                    child: const Padding(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Icon(
+                            Icons.location_on_outlined,
+                            color: Colors.black,
+                            size: 24.0,
+                          ),
+                          SizedBox(width: 8.0),
+                          Expanded(
+                            child: Text(
+                              'Deliver to Soumyajit - Kolkata 700078',
+                              style: TextStyle(
+                                fontSize: 15.0,
+                                color: Colors.black,
+                              ),
                             ),
-                            IconButton(
-                              icon: const Icon(Icons.mic_rounded,
-                                  color: Colors.grey, size: 30.0),
-                              onPressed: () {
-                                // navigation to be added
-                              },
-                            ),
-                          ],
-                        ),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10.0),
-                          borderSide: BorderSide.none,
-                        ),
-                        hintStyle: const TextStyle(
-                          color: Colors.grey,
-                          fontSize: 18.0,
-                        ),
-                        filled: true,
-                        fillColor: Colors.white,
+                          ),
+                        ],
                       ),
-                      style: const TextStyle(color: Colors.white),
-                      cursorColor: Colors.white,
                     ),
                   ),
-                ),
-              ),
-              IconButton(
-                icon: const Icon(Icons.qr_code_scanner_rounded, size: 30.0),
-                onPressed: () {
-                  // navigation to be added
-                },
-              ),
-            ],
-          ),
-          toolbarHeight: 90.0,
-        ),
-        body: _currentIndex == 0
-            ? SingleChildScrollView(
-                scrollDirection: Axis.vertical,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Container(
-                      color: const Color.fromARGB(120, 65, 200, 180),
-                      child: const Padding(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: 10.0, vertical: 5.0),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            Icon(
-                              Icons.location_on_outlined,
-                              color: Colors.black,
-                              size: 24.0,
+                  SizedBox(
+                    height: 110,
+                    child: Padding(
+                      padding: const EdgeInsetsDirectional.all(5.0),
+                      child: ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: 10,
+                        scrollDirection: Axis.horizontal,
+                        itemBuilder: (BuildContext context, int index) {
+                          return Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 4.0),
+                            child: CategoryItem(
+                              imageUrl: imageUrls[index],
+                              text: texts[index],
                             ),
-                            SizedBox(width: 8.0),
-                            Expanded(
-                              child: Text(
-                                'Deliver to Soumyajit - Kolkata 700078',
-                                style: TextStyle(
-                                  fontSize: 15.0,
-                                  color: Colors.black,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
+                          );
+                        },
                       ),
                     ),
-                    SizedBox(
-                      height: 110,
-                      child: Padding(
-                        padding: const EdgeInsetsDirectional.all(5.0),
-                        child: ListView.builder(
-                          shrinkWrap: true,
-                          itemCount: 10,
-                          scrollDirection: Axis.horizontal,
-                          itemBuilder: (BuildContext context, int index) {
-                            return Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 4.0),
-                              child: CategoryItem(
-                                imageUrl: imageUrls[index],
-                                text: texts[index],
-                              ),
-                            );
-                          },
-                        ),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 275,
-                      child: PageViewHighlights(),
-                    ),
-                  ],
-                ),
-              )
-            : const Center(
-                child: Text(
-                    'Other Screen Content')), // Handle other tabs content here
-        bottomNavigationBar: BottomNavigation(
-          currentIndex: _currentIndex,
-          onTap: _onItemTapped, // Handle tap on bottom navigation items
-        ),
+                  ),
+                  const SizedBox(
+                    height: 275,
+                    child: PageViewHighlights(),
+                  ),
+                ],
+              ),
+            )
+          // Handle other tabs content here
+          : (_currentIndex == 3
+              ? const CartPage()
+              : const Center(
+                  child: Text('Stay tuned for further updates'),
+                )),
+      bottomNavigationBar: BottomNavigation(
+        currentIndex: _currentIndex,
+        onTap: _onItemTapped, // Handle tap on bottom navigation items
       ),
-    );
+    ));
   }
 }
