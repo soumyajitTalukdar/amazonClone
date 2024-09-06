@@ -31,6 +31,7 @@ class GeneralGrid extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: GridView.builder(
+        physics: const NeverScrollableScrollPhysics(),
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2, // Number of columns
           crossAxisSpacing: 8.0, // Horizontal space between items

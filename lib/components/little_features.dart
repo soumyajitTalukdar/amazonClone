@@ -7,34 +7,46 @@ class LittleFeatures extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(16.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              buildCircularIconWithText('Amazon Pay', Icons.payment_rounded),
-              buildCircularIconWithText(
-                  'Send money', Icons.attach_money_rounded),
-            ],
-          ),
-          const SizedBox(height: 20),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              buildCircularIconWithText(
-                  'Scan any QR', Icons.qr_code_scanner_rounded),
-              buildCircularIconWithText(
-                  'Recharge & Bills', Icons.receipt_long_rounded),
-            ],
-          ),
-        ],
+      child: ConstrainedBox(
+        constraints: const BoxConstraints(
+          maxWidth: 210,
+        ),
+        child: GridView.count(
+          crossAxisCount: 2,
+          crossAxisSpacing: 5.0,
+          mainAxisSpacing: 5.0,
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          children: const [
+            CircularIconWithText(
+                text: 'Amazon Pay', iconData: Icons.payment_rounded),
+            CircularIconWithText(
+                text: 'Send money', iconData: Icons.attach_money_rounded),
+            CircularIconWithText(
+                text: 'Scan any QR', iconData: Icons.qr_code_scanner_rounded),
+            CircularIconWithText(
+                text: 'Recharge & Bills', iconData: Icons.receipt_long_rounded),
+          ],
+        ),
       ),
     );
   }
+}
 
-  Widget buildCircularIconWithText(String text, IconData iconData) {
+class CircularIconWithText extends StatelessWidget {
+  final String text;
+  final IconData iconData;
+
+  const CircularIconWithText({
+    super.key,
+    required this.text,
+    required this.iconData,
+  });
+
+  @override
+  Widget build(BuildContext context) {
     return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Container(
           width: 50,
@@ -52,7 +64,10 @@ class LittleFeatures extends StatelessWidget {
         const SizedBox(height: 8),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 6.0),
-          child: Text(text),
+          child: Text(
+            text,
+            textAlign: TextAlign.center,
+          ),
         ),
       ],
     );

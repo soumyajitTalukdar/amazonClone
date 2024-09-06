@@ -110,26 +110,36 @@ class HomePage extends StatelessWidget {
               height: 275,
               child: PageViewHighlights(),
             ),
-            SizedBox(
-              height: 250,
-              child: ListView.builder(
-                shrinkWrap: true,
-                itemCount: 5,
-                scrollDirection: Axis.horizontal,
-                itemBuilder: (BuildContext context, int index) {
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        LittleFeatures2(
-                          boxDesc: boxDescs[index],
-                          boxImageUrl: boxImageUrls[index],
-                        )
-                      ],
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  const LittleFeatures(),
+                  SizedBox(
+                    height: 250,
+                    child: ListView.builder(
+                      physics: const NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      itemCount: 5,
+                      scrollDirection: Axis.horizontal,
+                      itemBuilder: (BuildContext context, int index) {
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              LittleFeatures2(
+                                boxDesc: boxDescs[index],
+                                boxImageUrl: boxImageUrls[index],
+                              )
+                            ],
+                          ),
+                        );
+                      },
                     ),
-                  );
-                },
+                  ),
+                ],
               ),
             ),
             SizedBox(
@@ -167,7 +177,10 @@ class HomePage extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(height: 400, child: GeneralGrid()),
+            SizedBox(
+              height: 400,
+              child: GeneralGrid(),
+            ),
           ],
         ),
       ),
