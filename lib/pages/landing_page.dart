@@ -24,9 +24,6 @@ class _LandingPageState extends State<LandingPage> {
   final List<Widget> _pages = [
     HomePage(),
     const ProfilePage(),
-    const Center(
-      child: Text('Stay tuned for further updates'),
-    ),
     const CartPage(),
     const MenuPage(),
   ];
