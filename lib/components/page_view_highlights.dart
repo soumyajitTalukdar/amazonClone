@@ -1,8 +1,4 @@
-// auto scrolling for pageView done through Ticker
-// using SingleTickerProviderStateMixin and working with AnimationController
-
 import 'package:flutter/material.dart';
-import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class PageViewHighlights extends StatefulWidget {
   const PageViewHighlights({super.key});
@@ -14,49 +10,43 @@ class PageViewHighlights extends StatefulWidget {
 class _PageViewHighlightsState extends State<PageViewHighlights>
     with SingleTickerProviderStateMixin {
   final PageController _pageController = PageController();
-  int _currentPage = 0; // Track the current page
+  int _currentPage = 0;
   late AnimationController _animationController;
 
   @override
   void initState() {
     super.initState();
 
-    // Initialize the AnimationController
     _animationController = AnimationController(
       vsync: this,
       duration: const Duration(seconds: 3),
     );
 
-    // Add a listener to handle page changes
     _animationController.addListener(() {
       if (_animationController.isCompleted) {
-        // When animation completes, move to the next page
         if (_currentPage < 3) {
           _currentPage++;
         } else {
           _currentPage = 0;
         }
 
-        // Animate to the next page
         _pageController.animateToPage(
           _currentPage,
           duration: const Duration(milliseconds: 300),
           curve: Curves.easeInOut,
         );
 
-        // Reset and start the animation again
         _animationController.forward(from: 0.0);
       }
     });
 
-    // Start the initial animation
     _animationController.forward();
   }
 
   @override
   void dispose() {
-    _pageController.dispose(); // Dispose of the PageController
-    _animationController.dispose(); // Dispose of the AnimationController
+    _pageController.dispose();
+    _animationController.dispose();
     super.dispose();
   }
 
@@ -67,9 +57,11 @@ class _PageViewHighlightsState extends State<PageViewHighlights>
         PageView(
           controller: _pageController,
           onPageChanged: (int page) {
-            _currentPage = page; // Update the current page index
-            _animationController.reset(); // Reset the animation on manual swipe
-            _animationController.forward(); // Start the animation again
+            setState(() {
+              _currentPage = page; // Update the current page index
+            });
+            _animationController.reset();
+            _animationController.forward();
           },
           children: <Widget>[
             Image.network(
@@ -99,23 +91,20 @@ class _PageViewHighlightsState extends State<PageViewHighlights>
           left: 0,
           right: 0,
           child: Center(
-            child: SmoothPageIndicator(
-              controller: _pageController,
-              count: 4,
-              effect: const CustomizableEffect(
-                dotDecoration: DotDecoration(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: List<Widget>.generate(4, (int index) {
+                return AnimatedContainer(
+                  duration: const Duration(milliseconds: 300),
+                  margin: const EdgeInsets.symmetric(horizontal: 5),
                   height: 10,
                   width: 10,
-                  color: Colors.white,
-                  borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                ),
-                activeDotDecoration: DotDecoration(
-                  height: 10,
-                  width: 10,
-                  color: Colors.blue,
-                  borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                ),
-              ),
+                  decoration: BoxDecoration(
+                    color: _currentPage == index ? Colors.blue : Colors.white,
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                );
+              }),
             ),
           ),
         ),
