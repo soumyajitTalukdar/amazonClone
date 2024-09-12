@@ -15,7 +15,6 @@ class LittleFeatures2 extends StatelessWidget {
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
-        // crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           SizedBox(
             width: 150,

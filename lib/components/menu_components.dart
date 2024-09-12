@@ -17,7 +17,7 @@ class MenuComponents extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           color: Colors.grey[200],
-          borderRadius: BorderRadius.circular(16.0),
+          borderRadius: BorderRadius.circular(20.0),
           border: Border.all(
             color: Colors.grey,
             width: 2.0,
@@ -26,11 +26,14 @@ class MenuComponents extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.network(
-              imageUrl,
-              width: 100,
-              height: 100,
-              fit: BoxFit.cover,
+            ClipRRect(
+              borderRadius: BorderRadius.circular(18.0),
+              child: Image.network(
+                imageUrl,
+                width: 100,
+                height: 100,
+                fit: BoxFit.cover,
+              ),
             ),
             const SizedBox(height: 8),
             Text(

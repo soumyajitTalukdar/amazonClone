@@ -39,16 +39,12 @@ class AppbarComponent extends StatelessWidget implements PreferredSizeWidget {
                         IconButton(
                           icon: const Icon(Icons.camera_alt_outlined,
                               color: Colors.grey, size: 30.0),
-                          onPressed: () {
-// navigation to be added
-                          },
+                          onPressed: () {},
                         ),
                         IconButton(
                           icon: const Icon(Icons.mic_rounded,
                               color: Colors.grey, size: 30.0),
-                          onPressed: () {
-// navigation to be added
-                          },
+                          onPressed: () {},
                         ),
                       ],
                     ),
@@ -71,9 +67,7 @@ class AppbarComponent extends StatelessWidget implements PreferredSizeWidget {
           ),
           IconButton(
             icon: const Icon(Icons.qr_code_scanner_rounded, size: 30.0),
-            onPressed: () {
-// navigation to be added
-            },
+            onPressed: () {},
           ),
         ],
       ),

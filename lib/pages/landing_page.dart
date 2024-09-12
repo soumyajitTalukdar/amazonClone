@@ -23,7 +23,7 @@ class _LandingPageState extends State<LandingPage> {
 
   final List<Widget> _pages = [
     HomePage(),
-    const ProfilePage(),
+    ProfilePage(),
     const CartPage(),
     const MenuPage(),
   ];

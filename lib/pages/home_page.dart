@@ -163,9 +163,9 @@ class HomePage extends StatelessWidget {
                 ],
               ),
             ),
-            const Divider(
-              color: Colors.grey,
-              thickness: 3,
+            Divider(
+              color: Colors.grey.withOpacity(0.5),
+              thickness: 5,
             ),
             const Padding(
               padding: EdgeInsets.all(8.0),
