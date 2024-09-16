@@ -4,6 +4,7 @@ import 'package:flutter_projects/components/buy_again_grid.dart';
 import 'package:flutter_projects/components/horizontal_headers.dart';
 import 'package:flutter_projects/components/keep_shopping_grid.dart';
 import 'package:flutter_projects/components/your_orders_images.dart';
+import 'package:flutter_projects/pages/image_page.dart';
 
 class ProfilePage extends StatelessWidget {
   ProfilePage({super.key});
@@ -132,8 +133,19 @@ class ProfilePage extends StatelessWidget {
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          YourOrdersImages(
-                            boxImageUrl: boxImageUrls[index],
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      ImagePage(imageUrl: boxImageUrls[index]),
+                                ),
+                              );
+                            },
+                            child: YourOrdersImages(
+                              boxImageUrl: boxImageUrls[index],
+                            ),
                           )
                         ],
                       ),

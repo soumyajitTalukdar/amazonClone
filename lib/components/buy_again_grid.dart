@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_projects/components/buy_again_images.dart';
+import 'package:flutter_projects/pages/image_page.dart';
 
 class BuyAgainGrid extends StatelessWidget {
   BuyAgainGrid({super.key});
@@ -25,8 +26,21 @@ class BuyAgainGrid extends StatelessWidget {
       itemCount: imageUrls.length,
       itemBuilder: (context, index) {
         final item = imageUrls[index];
-        return BuyAgainImages(
-          boxImageUrl: item,
+        return MouseRegion(
+          cursor: SystemMouseCursors.click,
+          child: GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ImagePage(imageUrl: item),
+                ),
+              );
+            },
+            child: BuyAgainImages(
+              boxImageUrl: item,
+            ),
+          ),
         );
       },
     );

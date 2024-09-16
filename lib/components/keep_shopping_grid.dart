@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_projects/components/keep_shopping_components.dart';
+import 'package:flutter_projects/pages/image_page.dart';
 
 class KeepShoppingGrid extends StatelessWidget {
   KeepShoppingGrid({super.key});
@@ -59,10 +60,20 @@ class KeepShoppingGrid extends StatelessWidget {
       itemCount: items.length,
       itemBuilder: (context, index) {
         final item = items[index];
-        return KeepShoppingComponents(
-          boxImageUrl: item['boxImageUrl']!,
-          boxText: item['boxText']!,
-          views: numberOfViews[index],
+        return GestureDetector(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => ImagePage(imageUrl: item['boxImageUrl']!),
+              ),
+            );
+          },
+          child: KeepShoppingComponents(
+            boxImageUrl: item['boxImageUrl']!,
+            boxText: item['boxText']!,
+            views: numberOfViews[index],
+          ),
         );
       },
     );
