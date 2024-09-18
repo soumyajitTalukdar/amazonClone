@@ -21,13 +21,10 @@ class YourOrdersImages extends StatelessWidget {
         ),
         child: Padding(
           padding: const EdgeInsets.all(25.0),
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(18.0),
-            child: Image.network(
-              boxImageUrl,
-              width: 150,
-              height: 150,
-            ),
+          child: Image.network(
+            boxImageUrl,
+            width: 150,
+            height: 150,
           ),
         ),
       ),

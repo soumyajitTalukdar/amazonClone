@@ -11,6 +11,13 @@ class ButtonGrid extends StatelessWidget {
     'Your Lists',
   ];
 
+  final List<Widget> pages = const [
+    // YourOrdersPage(),
+    // BuyAgainPage(),
+    // YourAccountPage(),
+    // YourListsPage(),
+  ];
+
   @override
   Widget build(BuildContext context) {
     return GridView.builder(
@@ -25,6 +32,12 @@ class ButtonGrid extends StatelessWidget {
         final item = texts[index];
         return ButtonGridComponents(
           text: item,
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => pages[index]),
+            );
+          },
         );
       },
     );

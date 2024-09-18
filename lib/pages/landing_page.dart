@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_projects/components/bottom_navigation.dart';
-import 'package:flutter_projects/pages/cart_page.dart';
-import 'package:flutter_projects/pages/home_page.dart';
-import 'package:flutter_projects/pages/menu_page.dart';
-import 'package:flutter_projects/pages/profile_page.dart';
+import 'package:flutter_projects/pages/cartPage/cart_page.dart';
+import 'package:flutter_projects/pages/homePage/home_page.dart';
+import 'package:flutter_projects/pages/menuPage/menu_page.dart';
+import 'package:flutter_projects/pages/youPage/profile_page.dart';
 
 class LandingPage extends StatefulWidget {
   const LandingPage({super.key});
@@ -24,7 +24,7 @@ class _LandingPageState extends State<LandingPage> {
   final List<Widget> _pages = [
     HomePage(),
     ProfilePage(),
-    const CartPage(),
+    const CartPage(imageUrl: 'https://example.com/placeholder.jpg'),
     const MenuPage(),
   ];
 

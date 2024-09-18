@@ -2,16 +2,18 @@ import 'package:flutter/material.dart';
 
 class ButtonGridComponents extends StatelessWidget {
   final String text;
+  final VoidCallback onPressed;
 
   const ButtonGridComponents({
     super.key,
     required this.text,
+    required this.onPressed,
   });
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed: () {},
+      onPressed: onPressed,
       style: ElevatedButton.styleFrom(
         elevation: 0,
         fixedSize: const Size(75, 50),
