@@ -3,13 +3,20 @@ import 'package:flutter_projects/components/appbar_component.dart';
 import 'package:flutter_projects/components/image_in_cart.dart';
 import 'package:flutter_projects/components/item_counter.dart';
 
-class CartPage extends StatelessWidget {
+class CartPage extends StatefulWidget {
   final String imageUrl;
 
   const CartPage({
     super.key,
     required this.imageUrl,
   });
+
+  @override
+  State<CartPage> createState() => _CartPageState();
+}
+
+class _CartPageState extends State<CartPage> {
+  int _itemCount = 1;
 
   @override
   Widget build(BuildContext context) {
@@ -21,20 +28,31 @@ class CartPage extends StatelessWidget {
           scrollDirection: Axis.vertical,
           child: Column(
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  ImageInCart(imageUrl: imageUrl),
-                  const Text('Image details'),
-                ],
-              ),
-              const Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  ItemCounter(),
-                  Text('Button details'),
-                ],
-              )
+              if (_itemCount > 0) // Only show the row if item count > 0
+                Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        ImageInCart(imageUrl: widget.imageUrl),
+                        const Text('Image details'),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        ItemCounter(
+                          initialCount: _itemCount,
+                          onItemCountChanged: (count) {
+                            setState(() {
+                              _itemCount = count;
+                            });
+                          },
+                        ),
+                        const Text('Button details'),
+                      ],
+                    ),
+                  ],
+                ),
             ],
           ),
         ),

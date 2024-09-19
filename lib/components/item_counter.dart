@@ -1,14 +1,27 @@
 import 'package:flutter/material.dart';
 
 class ItemCounter extends StatefulWidget {
-  const ItemCounter({super.key});
+  final int initialCount;
+  final Function(int) onItemCountChanged;
+
+  const ItemCounter({
+    super.key,
+    required this.initialCount,
+    required this.onItemCountChanged,
+  });
 
   @override
   State<ItemCounter> createState() => _ItemCounterState();
 }
 
 class _ItemCounterState extends State<ItemCounter> {
-  int _itemCount = 1; // Initial item count
+  late int _itemCount = 1; // Initial item count
+
+  @override
+  void initState() {
+    super.initState();
+    _itemCount = widget.initialCount;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -21,6 +34,7 @@ class _ItemCounterState extends State<ItemCounter> {
             onPressed: () {
               setState(() {
                 _itemCount--;
+                widget.onItemCountChanged(_itemCount);
               });
             },
             icon: Icon(
@@ -39,6 +53,7 @@ class _ItemCounterState extends State<ItemCounter> {
             onPressed: () {
               setState(() {
                 _itemCount++;
+                widget.onItemCountChanged(_itemCount);
               });
             },
             icon: const Icon(
